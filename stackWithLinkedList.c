@@ -32,14 +32,14 @@ int isEmpty(StackNode *root)
 
 void push(StackNode **root, int data)
 {
-    StackNode *newNode = createStackNode(data);
-    if (newNode == NULL)
+       // 이 부분을 구현해 주세요!
+    StackNode *newNode = createStackNode(data); //새로운 노드 생성
+    if (newNode == NULL) // 노드가 비정상적일 경우 강제 종료
     {
         exit(1);
     }
-     // 이 부분을 구현해 주세요!
-    newNode->next = *root;
-    *root = newNode;
+    newNode->next = *root; //이 newNode의 다음 newNode를 *root 포인터로 지정
+    *root = newNode; // root 포인터는 항상 top(즉 LIFO(Last In First Out) 방식)을 유지해야하기 때문에 *root 포인터를 newNode 포인터로 갱신시켜준다.
 
     printf("%d pushed to stack\n", data);
 }
@@ -50,11 +50,11 @@ int pop(StackNode **root)
         return -9999;
     int popped;
     // 이 부분을 구현해 주세요!
-    StackNode *deleteNode;
-    popped = (*root)->data;
-    deleteNode = *root;
-    *root = (*root)->next;
-    free(deleteNode);
+    StackNode *deleteNode; //필요없는 노드의 메모리를 해제하기위해 노드 선언
+    popped = (*root)->data; // 최근에 넣은 값(즉 root의 데이터 값)을 popped에 저장
+    deleteNode = *root; // deleteNode 포인터를 *root 포인터로 바꿔준다.
+    *root = (*root)->next; // 다음 Node((*root)->next)를 root 포인터로 지정.
+    free(deleteNode); // 필요없는 노드의 메모리 해제
 
     return popped;
 }
